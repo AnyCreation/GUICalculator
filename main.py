@@ -3,15 +3,7 @@ import dearpygui.dearpygui as dpg
 dpg.create_context()
 W, H = 400, 800
 
-<<<<<<< HEAD
 Number_One, Number_Two = 0, 0
-=======
-with dpg.window(label="Windows", width=800, height=800):
-    dpg.add_text("HELLO") 
-    dpg.add_button(label="button")
-    dpg.add_input_text(label="TEXT! HERE!")
-    dpg.add_button(label="button")
->>>>>>> 6c427d05eb5f3a10cdef4dee1a9a0fea83e30deb
 
 new_text = 0
 
