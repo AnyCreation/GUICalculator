@@ -1,0 +1,26 @@
+with dpg.group(horizontal=True):
+        for i in range(1, 4):
+            with dpg.theme(tag="__demo_theme"+str(i)):
+                with dpg.theme_component(dpg.mvButton):
+                    dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 8)
+                    dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 20, 10)
+
+            X = dpg.add_button(label=f"{i}", callback=Xpee)
+            dpg.bind_item_theme(dpg.last_item(), "__demo_theme"+str(i))
+
+     with dpg.group(horizontal=True):
+        for i in range(4, 7):
+            with dpg.theme(tag="__demo_theme2"+str(i)):
+                with dpg.theme_component(dpg.mvButton):
+                    dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 8)
+                    dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 20, 10)
+
+            L = dpg.add_button(label=f"{i}")
+            dpg.bind_item_theme(dpg.last_item(), "__demo_theme2"+str(i))
+
+     with dpg.group(horizontal=True):
+        for i in range(7, 10):
+            with dpg.theme(tag="__demo_theme3"+str(i)):
+                with dpg.theme_component(dpg.mvButton):
+                    dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 8)
+                    dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 20, 10)
