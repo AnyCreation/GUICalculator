@@ -45,13 +45,13 @@ func = {
     "[^]": lambda Num : Func_Push(Num, "^")
 }
 
-def Set_Number(sender):
+def Set_Rules(sender):
     global new_text
     if new_text == "[...]":
         new_text = []
-        new_text.append(int(sender))
+        new_text.append(sender)
     else:
-        new_text.append(int(sender))
+        new_text.append(sender)
     dpg.set_value(Use_Num, new_text)
 
 def Delete_Number(sender):
@@ -86,7 +86,7 @@ def Func_Buttons():
     button_height = 50
 
     with dpg.group(horizontal=True, horizontal_spacing=5):
-        F1 = dpg.add_button(label="+", tag="+", callback=Set_Func, width=button_width, height=button_height)
+        F1 = dpg.add_button(label="+", tag="+", callback=Set_Number, width=button_width, height=button_height)
         dpg.bind_item_theme(F1, 4)
         F2 = dpg.add_button(label="-", tag="-", callback=Set_Func, width=button_width, height=button_height)
         dpg.bind_item_theme(F2, 4)
