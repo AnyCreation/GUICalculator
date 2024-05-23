@@ -12,6 +12,7 @@ last_item = dpg.last_item()
 new_text = []
 new_func = ""
 
+
 def Func_Push(Num, Func):
     M = 0
     if Func == "+":
@@ -32,7 +33,7 @@ def Func_Push(Num, Func):
     elif Func == "^":
         M = Num[0]
         for i in range(1, len(Num)):
-            M = M ** i
+            M = M ** Num[i]
 
     return M
 
