@@ -12,13 +12,36 @@ last_item = dpg.last_item()
 new_text = []
 new_func = ""
 
+def Func_Push(Num, Func):
+    M = 0
+    if Func == "+":
+        for i in Num:
+            M += i
+    elif Func == "-":
+        M = Num[0]
+        for i in range(1, len(Num)):
+            M -= Num[i]
+    elif Func == "x":
+        M = 1
+        for i in Num:
+            M *= i
+    elif Func == "/":
+        M = Num[0]
+        for i in range(1, len(Num)):
+            M /= Num[i]
+    elif Func == "^":
+        M = Num[0]
+        for i in range(1, len(Num)):
+            M = M ** i
+
+    return M
 
 func = {
-    "[+]": lambda Num : Num[0] + Num[1],
-    "[-]": lambda Num : Num[0] - Num[1],
-    "[x]": lambda Num : Num[0] * Num[1],
-    "[/]": lambda Num : Num[0] / Num[1],
-    "[^]": lambda Num : Num[0] ** Num[1]
+    "[+]": lambda Num : Func_Push(Num, "+"),
+    "[-]": lambda Num : Func_Push(Num, "-"),
+    "[x]": lambda Num : Func_Push(Num, "x"),
+    "[/]": lambda Num : Func_Push(Num, "/"),
+    "[^]": lambda Num : Func_Push(Num, "^")
 }
 
 def Set_Number(sender):
@@ -87,7 +110,7 @@ def Result_Text():
         Info = dpg.add_text("[?]")
         dpg.add_text("|")
         Use_Num = dpg.add_text("[...]")
-        dpg.add_text(":")
+        dpg.add_text("=")
         Result = dpg.add_text("Result")
 
 with dpg.window(label="Calculator", tag="Win"):
