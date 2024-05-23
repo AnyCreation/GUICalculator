@@ -74,11 +74,11 @@ def Num_Buttons(Start, End, W, H):
     button_height = H / 4 - 20
 
     with dpg.group(horizontal=True, horizontal_spacing=5):
-        S1 = dpg.add_button(label=f"{Start}", tag=f"{Start}", callback=Set_Number, width=button_width, height=button_height)
+        S1 = dpg.add_button(label=f"{Start}", tag=f"{Start}", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(S1, 4)
-        S2 = dpg.add_button(label=f"{Start + 1}", tag=f"{Start + 1}", callback=Set_Number, width=button_width, height=button_height)
+        S2 = dpg.add_button(label=f"{Start + 1}", tag=f"{Start + 1}", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(S2, 4)
-        S3 = dpg.add_button(label=f"{End}", tag=f"{End}", callback=Set_Number, width=button_width, height=button_height)
+        S3 = dpg.add_button(label=f"{End}", tag=f"{End}", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(S3, 4)
 
 def Func_Buttons():
@@ -86,15 +86,15 @@ def Func_Buttons():
     button_height = 50
 
     with dpg.group(horizontal=True, horizontal_spacing=5):
-        F1 = dpg.add_button(label="+", tag="+", callback=Set_Number, width=button_width, height=button_height)
+        F1 = dpg.add_button(label="+", tag="+", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(F1, 4)
-        F2 = dpg.add_button(label="-", tag="-", callback=Set_Func, width=button_width, height=button_height)
+        F2 = dpg.add_button(label="-", tag="-", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(F2, 4)
-        F3 = dpg.add_button(label="x", tag="x", callback=Set_Func, width=button_width, height=button_height)
+        F3 = dpg.add_button(label="x", tag="x", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(F3, 4)
-        F4 = dpg.add_button(label="/", tag="/", callback=Set_Func, width=button_width, height=button_height)
+        F4 = dpg.add_button(label="/", tag="/", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(F4, 4)
-        F5 = dpg.add_button(label="^", tag="^", callback=Set_Func, width=button_width, height=button_height)
+        F5 = dpg.add_button(label="^", tag="^", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(F5, 4)
 
         DEL = dpg.add_button(label="DELETE", tag="DELETE", callback=Delete_Number, width=button_width * 2 - 10, height=button_height)
