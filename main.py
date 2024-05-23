@@ -74,6 +74,8 @@ def Func_Buttons():
         dpg.bind_item_theme(F5, 4)
 
         DEL = dpg.add_button(label="DELETE", tag="DELETE", callback=Delete_Number, width=button_width * 2 - 10, height=button_height)
+
+        dpg.add_text("Choose Actions")
         dpg.bind_item_theme(DEL, 4)
 
     RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Set_Result, width=button_width * 2 - 10, height=button_height)
@@ -96,6 +98,8 @@ with dpg.window(label="Calculator", tag="Win"):
             dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 10, 10)
 
      Result_Text()
+     T = "-" * (W // 5)
+     dpg.add_text(T)
      Num_Buttons(1, 3, W, H)
      Num_Buttons(4, 6, W, H)
      Num_Buttons(7, 9, W, H)
