@@ -13,19 +13,19 @@ new_text = []
 new_func = ""
 
 
-
 func = {
-    "+": lambda x, y : x + y,
-    "-": lambda x, y : x - y,
-    "x": lambda x, y : x * y,
-    "/": lambda x, y : x / y,
-    "^": lambda x, y : x ** y
+    "[+]": lambda Num : Num[0] + Num[1],
+    "[-]": lambda Num : Num[0] - Num[1],
+    "[x]": lambda Num : Num[0] * Num[1],
+    "[/]": lambda Num : Num[0] / Num[1],
+    "[^]": lambda Num : Num[0] ** Num[1]
 }
 
 def Set_Number(sender):
     global new_text
     if new_text == "[...]":
         new_text = []
+        new_text.append(int(sender))
     else:
         new_text.append(int(sender))
     dpg.set_value(Use_Num, new_text)
@@ -40,10 +40,10 @@ def Set_Func(sender):
     new_func = f"[{sender}]"
     dpg.set_value(Info, new_func)
 
-    L = new_text
-    print(func[sender](L[0], L[1]))
-    print(L)
-
+def Set_Result(sender):
+    global new_text, new_func, Result
+    R = func[dpg.get_value(Info)](new_text)
+    dpg.set_value(Result, f'{R}')
 
 def Num_Buttons(Start, End, W, H):
     button_width = W / 3 - 40
@@ -76,8 +76,11 @@ def Func_Buttons():
         DEL = dpg.add_button(label="DELETE", tag="DELETE", callback=Delete_Number, width=button_width * 2 - 10, height=button_height)
         dpg.bind_item_theme(DEL, 4)
 
+    RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Set_Result, width=button_width * 2 - 10, height=button_height)
+    dpg.bind_item_theme(DEL, 4)
+
 def Result_Text():
-    global Use_Num, Info
+    global Use_Num, Info, Result
     with dpg.group(horizontal=True, horizontal_spacing=5):
         Info = dpg.add_text("[?]")
         dpg.add_text("|")
