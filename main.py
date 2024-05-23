@@ -51,7 +51,7 @@ func = {
     "[^]": lambda Num : Func_Push(Num, "^")
 }
 
-def Set_Rules(sender): # Replace Append Rules (Number (int) Or Function (str)) and "[...]"
+def Set_Rules(sender): # Replace Append "Rules" (Number (int) Or Function (str)) And "[...]"
     global new_text, Fezmat
     if new_text == "[...]":
         new_text = []
@@ -60,20 +60,23 @@ def Set_Rules(sender): # Replace Append Rules (Number (int) Or Function (str)) a
         Fezmat = StrOrInt(new_text, sender)
     dpg.set_value(Use_Num, Fezmat)
 
-def Delete_Number(sender):
+def Delete_Number(sender): # For Button. Delete "Rules" And Set "[...]"
     global new_text, Use_Num
     new_text = "[...]"
     dpg.set_value(Use_Num, new_text)
 
-def Get_Result(sender): # Need To Checking The Rules (new_text) And Give Result
+def Get_Result(sender): # Need To Checking The "Rules" (new_text) And Give Result /// Rule For Func Read In "F_count.TXT"
     global Fezmat, new_func, Result
     for Check in Fezmat: print(Check)
 
-def Num_Buttons(Start, End, W, H): # Number Button (1 - 9)
+
+
+""" (| ------ ↓↓ Button Func (+, -, *, /, ^, DELETE and RESULT) And Number (1 - 9) ↓↓ --------------------------|) |X| """
+def Num_Buttons(Start, End, W, H): # Button (1 - 9)
     button_width = W / 3 - 40
     button_height = H / 4 - 20
 
-    with dpg.group(horizontal=True, horizontal_spacing=5):
+    with dpg.group(horizontal=True, horizontal_spacing=5): # Button 1 - 9
         S1 = dpg.add_button(label=f"{Start}", tag=f"{Start}", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(S1, 4)
         S2 = dpg.add_button(label=f"{Start + 1}", tag=f"{Start + 1}", callback=Set_Rules, width=button_width, height=button_height)
@@ -98,23 +101,25 @@ def Func_Buttons(): # Function Button (+, -, *, /, ^, DELETE and RESULT)
         dpg.bind_item_theme(F5, 4)
 
         DEL = dpg.add_button(label="DELETE", tag="DELETE", callback=Delete_Number, width=button_width * 2 - 10, height=button_height)
-
-        dpg.add_text("Choose Actions")
         dpg.bind_item_theme(DEL, 4)
 
-    RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Get_Result, width=button_width * 2 - 10, height=button_height)
-    dpg.bind_item_theme(DEL, 4)
+        dpg.add_text("|Choose |Actions", wrap=0, color=(81, 204, 242))
 
-def Result_Text(): # Text: {Rules} = {Result}
+    RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Get_Result, width=button_width * 2 - 10, height=button_height)
+    dpg.bind_item_theme(RES, 4)
+""" (| ------ ↑↑ Button Func (+, -, *, /, ^, DELETE and RESULT) And Number (1 - 9) ↑↑ --------------------------|) |X|"""
+
+
+
+def Result_Text(): # Text: {"Rules"} = {Result}
     global Use_Num, Info, Result
     with dpg.group(horizontal=True, horizontal_spacing=5):
         Use_Num = dpg.add_text("[...]")
         dpg.add_text("=")
         Result = dpg.add_text("Result")
 
-with dpg.window(label="Calculator", tag="Win"):
-     
-     with dpg.theme(tag=4):
+with dpg.window(label="Calculator", tag="Win"): # Window
+     with dpg.theme(tag=4): # Costum For Button
         with dpg.theme_component(dpg.mvButton):
             dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 8)
             dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 10, 10)
