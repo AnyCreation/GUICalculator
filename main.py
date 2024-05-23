@@ -12,6 +12,13 @@ last_item = dpg.last_item()
 new_text = []
 new_func = ""
 
+def StrOrInt(Num, M):
+    try:
+        Num.append(int(M))
+    except ValueError:
+        Num.append(str(M))
+
+    return Num
 
 def Func_Push(Num, Func):
     M = 0
@@ -36,7 +43,6 @@ def Func_Push(Num, Func):
             M = M ** Num[i]
 
     return M
-
 func = {
     "[+]": lambda Num : Func_Push(Num, "+"),
     "[-]": lambda Num : Func_Push(Num, "-"),
@@ -45,31 +51,25 @@ func = {
     "[^]": lambda Num : Func_Push(Num, "^")
 }
 
-def Set_Rules(sender):
-    global new_text
+def Set_Rules(sender): # Replace Append Rules (Number (int) Or Function (str)) and "[...]"
+    global new_text, Fezmat
     if new_text == "[...]":
         new_text = []
-        new_text.append(sender)
+        Fezmat = StrOrInt(new_text, sender)
     else:
-        new_text.append(sender)
-    dpg.set_value(Use_Num, new_text)
+        Fezmat = StrOrInt(new_text, sender)
+    dpg.set_value(Use_Num, Fezmat)
 
 def Delete_Number(sender):
     global new_text, Use_Num
     new_text = "[...]"
     dpg.set_value(Use_Num, new_text)
 
-def Set_Func(sender): 
-    global new_func, Info, new_text
-    new_func = f"[{sender}]"
-    dpg.set_value(Info, new_func)
+def Get_Result(sender): # Need To Checking The Rules (new_text) And Give Result
+    global Fezmat, new_func, Result
+    for Check in Fezmat: print(Check)
 
-def Set_Result(sender):
-    global new_text, new_func, Result
-    R = func[dpg.get_value(Info)](new_text)
-    dpg.set_value(Result, f'{R}')
-
-def Num_Buttons(Start, End, W, H):
+def Num_Buttons(Start, End, W, H): # Number Button (1 - 9)
     button_width = W / 3 - 40
     button_height = H / 4 - 20
 
@@ -81,11 +81,11 @@ def Num_Buttons(Start, End, W, H):
         S3 = dpg.add_button(label=f"{End}", tag=f"{End}", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(S3, 4)
 
-def Func_Buttons():
+def Func_Buttons(): # Function Button (+, -, *, /, ^, DELETE and RESULT)
     button_width = W / 5 - 40
     button_height = 50
 
-    with dpg.group(horizontal=True, horizontal_spacing=5):
+    with dpg.group(horizontal=True, horizontal_spacing=5): # Button: +, -, *, /, ^ and Delete
         F1 = dpg.add_button(label="+", tag="+", callback=Set_Rules, width=button_width, height=button_height)
         dpg.bind_item_theme(F1, 4)
         F2 = dpg.add_button(label="-", tag="-", callback=Set_Rules, width=button_width, height=button_height)
@@ -102,14 +102,12 @@ def Func_Buttons():
         dpg.add_text("Choose Actions")
         dpg.bind_item_theme(DEL, 4)
 
-    RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Set_Result, width=button_width * 2 - 10, height=button_height)
+    RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Get_Result, width=button_width * 2 - 10, height=button_height)
     dpg.bind_item_theme(DEL, 4)
 
-def Result_Text():
+def Result_Text(): # Text: {Rules} = {Result}
     global Use_Num, Info, Result
     with dpg.group(horizontal=True, horizontal_spacing=5):
-        Info = dpg.add_text("[?]")
-        dpg.add_text("|")
         Use_Num = dpg.add_text("[...]")
         dpg.add_text("=")
         Result = dpg.add_text("Result")
