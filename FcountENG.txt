@@ -5,10 +5,10 @@ ElemSTR = String element / (+, -, *, /, ^)
 
 2. If there is ElemING₁ and after it another ElemING₂ and ElemING₁ equals 0, then [ElemING₂ is divided by 10].
 
-3. If between ElemING₁ and ElemING₂, there is ElemSTR (ElemSTR = Rules) (+, -, *, /, ^), then [ElemING₁ and ElemING₂ act on each other according to ElemSTR].
+3. If between ElemING₁ and ElemING₂, there is ElemSTR (ElemSTR = Rules) (+, -, *, /, ^), then [ElemING₁ and ElemING₂ interact with each other according to ElemSTR].
 
-4. If there is ElemING₁ with a comma and after it another ElemING without a comma₂, then [ElemING₂ is added to the end]. --> 0.x, y --> 0.xy, z --> 0.xyz, q -->...
+4. If there is ElemING₁ with a comma and after it another ElemING₂ without a comma, then [ElemING₂ is added to the end]. --> 0.x, y --> 0.xy, z --> 0.xyz, q -->...
 
 5. If after ElemSTR₁ there is another ElemSTR₂, then [ElemSTR₁ is removed].
 
-₁, ₂
+6. If ElemSTR₁ is "/", then [ElemING₂ cannot be 0].

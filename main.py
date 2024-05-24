@@ -13,14 +13,7 @@ new_text = []
 new_func = ""
 
 
-def StrOrInt(Num, M): # Namber --> int \ Rules --> str
-    try:
-        Num.append(int(M))
-    except ValueError:
-        Num.append(str(M))
-
-    return Num
-
+""" (| ------ ↓↓ mathematical symbols - Fucn ↓↓ --------------------------|) |X| """
 def Func_Push(Num, Func): # Func-Rules
     M = 0
     if Func == "+":
@@ -44,15 +37,16 @@ def Func_Push(Num, Func): # Func-Rules
             M = M ** Num[i]
 
     return M
-func = { # Rules
+func = { # Rules - Lambda
     "[+]": lambda Num : Func_Push(Num, "+"),
     "[-]": lambda Num : Func_Push(Num, "-"),
     "[x]": lambda Num : Func_Push(Num, "x"),
     "[/]": lambda Num : Func_Push(Num, "/"),
     "[^]": lambda Num : Func_Push(Num, "^")
 }
+""" (| ------ ↑↑ mathematical symbols - Fucn ↑↑ --------------------------|) |X| """
 
-def After_The_Decimal_Point(K1, K2):
+def After_The_Decimal_Point(K1, K2): # To Avoid Errors When Dividing
     return str(K1) + str(K2)
 
 def DivisionZero(): # If The User Tries To Divide By Zero
@@ -64,6 +58,14 @@ def DivisionZero(): # If The User Tries To Divide By Zero
     time.sleep(0.85)
     dpg.delete_item(ByZero)
     Delete_Rules()
+
+def StrOrInt(Num, M): # Namber -{become}-> int (Example: '9' --> 9) \ Rules -{Stays}-> str (Example: '/' --> '/')
+    try:
+        Num.append(int(M))
+    except ValueError:
+        Num.append(str(M))
+
+    return Num
 
 def Set_Rules(sender): # Replace Append "Rules" (Number (int) Or Function (str)) And "[...]" /// Rule For Func Read In "F_count[rus/eng].txt"
     global new_text
@@ -101,15 +103,6 @@ def Set_Rules(sender): # Replace Append "Rules" (Number (int) Or Function (str))
             
     dpg.set_value(Use_Num, new_text)
 
-def Delete_Rules(): # For Button. Delete "Rules" And Set "[...]"
-    global new_text, Use_Num
-    new_text = "[...]"
-    dpg.set_value(Use_Num, new_text)
-def Delete_Last_El_Rules(sender): # For Button. Delete Last El In "Rules"
-    global new_text, Use_Num
-    new_text.pop()
-    dpg.set_value(Use_Num, new_text)
-
 def Get_Result(sender): # Need To Checking The "Rules" (new_text) And Give Result
     global new_text, new_func, Result, S1, S2
     for R in range(0, len(new_text) - 2):
@@ -117,7 +110,6 @@ def Get_Result(sender): # Need To Checking The "Rules" (new_text) And Give Resul
             S1, S2 = new_text[R], new_text[R + 2]
             F = new_text[R + 1]
         
-            print(S1, S2)
             dpg.set_value(Result, Func_Push([S1, S2], F))
 
 def Result_Text(): # Text: {"Rules"} = {Result}
@@ -127,6 +119,18 @@ def Result_Text(): # Text: {"Rules"} = {Result}
         dpg.add_text("=")
         Result = dpg.add_text("Result")
 
+""" (| ------ ↓↓ Func For DELETE ↓↓ --------------------------|) |X| """
+def Delete_Rules(): # For Button. Delete All "Rules" And Set "[...]"
+    global new_text, Use_Num
+    new_text = "[...]"
+    dpg.set_value(Use_Num, new_text)
+def Delete_Last_El_Rules(sender): # For Button. Delete Last El In "Rules"
+    global new_text, Use_Num
+    new_text.pop()
+    dpg.set_value(Use_Num, new_text)
+""" (| ------ ↑↑ Func For DELETE ↑↑ --------------------------|) |X| """
+
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 """ (| ------ ↓↓ Button Func (+, -, *, /, ^, DELETE and RESULT) And Number (1 - 9) ↓↓ --------------------------|) |X| """
 def Num_Buttons(Start, End, W, H): # Button (1 - 9 and 0)
@@ -145,7 +149,6 @@ def Num_Buttons(Start, End, W, H): # Button (1 - 9 and 0)
     if End == 9:
         ZERO = dpg.add_button(label="0", tag=f"0", callback=Set_Rules, width=button_width, height=button_width)
         dpg.bind_item_theme(ZERO, 4)
-
 def Func_Buttons(): # Function Button (+, -, *, /, ^, DELETE and RESULT)
     button_width = W / 7 - 40
     button_height = 40
@@ -171,13 +174,12 @@ def Func_Buttons(): # Function Button (+, -, *, /, ^, DELETE and RESULT)
         DEL = dpg.add_button(label="DELETE", tag="DELETE", callback=Delete_Rules, width=button_width * 2 - 10, height=button_height)
         dpg.bind_item_theme(DEL, 4)
         ERA = dpg.add_button(label="ERASE", tag="ERASE", callback=Delete_Last_El_Rules, width=button_width * 2 - 10, height=button_height)
-        dpg.bind_item_theme(ERA, 4)
-        
+        dpg.bind_item_theme(ERA, 4)       
     dpg.add_text("|----------------|------|-------|----------------------------|", wrap=0, color=(81, 204, 242))
 
     RES = dpg.add_button(label="RESULT", tag="RESULT", callback=Get_Result, width=button_width * 2 - 10, height=button_height)
     dpg.bind_item_theme(RES, 4)
-""" (| ------ ↑↑ Button Func (+, -, *, /, ^, DELETE and RESULT) And Number (1 - 9) ↑↑ --------------------------|) |X|"""
+""" (| ------ ↑↑ Button Func (+, -, *, /, ^, DELETE and RESULT) And Number (1 - 9) ↑↑ --------------------------|) |X| """
 
 
 with dpg.window(label="Calculator", tag="Win"): # Window
@@ -196,6 +198,7 @@ with dpg.window(label="Calculator", tag="Win"): # Window
      Num_Buttons(7, 9, W, H)
      
      Func_Buttons()
+
 
 dpg.create_viewport(title='Calculator', width=W + 20, height=H)
 dpg.setup_dearpygui()
