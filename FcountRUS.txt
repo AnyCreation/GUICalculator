@@ -1,0 +1,22 @@
+ElemING = Элемент числа
+ElemSTR = Элемент строка / (+, -, *, /, ^)
+
+1. если есть ElemING₁ и после него другой ElemING₂, то [ElemING₁ умножается на 10 и добавляется ElemING₂].
+
+2. если есть ElemING₁ и после него другой ElemING₂ и ElemING₁ равен 0, то [ElemING₂ делится на 10].
+
+<<<<<<< HEAD
+3. если между ElemING₁ и ElemING₂, есть ElemSTR (ElemSTR = Rules) (+, -, *, /, ^), 
+то [ElemING₁ и ElemING₂ действует друг на друга согласно ElemSTR].
+
+4. если полсе ElemSTR₁ есть другой ElemSTR₂, то [ElemSTR₁ удаляется]
+=======
+3. если есть ElemING₁ c запятой и после него другой ElemING без запятой₂ то [ElemING₂ добавляется в конец]. --> 0.x, y --> 0.xy, z --> 0.xyz, q -->...
+
+4. если между ElemING₁ и ElemING₂, есть ElemSTR (ElemSTR = Rules) (+, -, *, /, ^), 
+то [ElemING₁ и ElemING₂ действует друг на друга согласно ElemSTR].
+
+5. если полсе ElemSTR₁ есть другой ElemSTR₂, то [ElemSTR₁ удаляется]
+>>>>>>> teste_Rules
+
+₁, ₂
