@@ -12,11 +12,13 @@ last_item = dpg.last_item()
 new_text = []
 new_func = ""
 
+S = ""
+
 dpg.set_global_font_scale(1)
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ | |
 
-""" (| ------ ↓↓ Sets Body Text: [...] = Result ↓↓ --------------------------|) |X| """
+""" (| ------ ↓↓ Sets Body Text: [Enter The Equation] = Result ↓↓ --------------------------|) |X| """
 def Sets_Result_Text(): # Text: {"Rules"} = {Result}
     global Use_Num, Result
 
@@ -24,14 +26,14 @@ def Sets_Result_Text(): # Text: {"Rules"} = {Result}
         default_font = dpg.add_font("C:/Windows/Fonts/Arial.ttf", (W * 0.03))  # Обычный размер шрифта
 
     with dpg.group(horizontal=True, horizontal_spacing=5):
-        Use_Num = dpg.add_text("[...]")
+        Use_Num = dpg.add_text("[Enter The Equation]")
         Qua = dpg.add_text("=")
         Result = dpg.add_text("Result")
 
     dpg.bind_item_font(Use_Num, default_font)
     dpg.bind_item_font(Qua, default_font)
     dpg.bind_item_font(Result, default_font)
-""" (| ------ ↑↑ Sets Body Text: [...] = Result ↑↑ --------------------------|) |X| """
+""" (| ------ ↑↑ Sets Body Text: [Enter The Equation] = Result ↑↑ --------------------------|) |X| """
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ | |
 
@@ -76,7 +78,7 @@ def After_The_Decimal_Point(K1, K2): # To Avoid Errors When Dividing
 def DivisionZero(): # If The User Tries To Divide By Zero
     global ZERO
 
-    ByZero = dpg.add_text("Division by zero is prohibited! May be...", parent="Win", 
+    ByZero = dpg.add_text("Division by zero is prohibited! May Ee[enter The Equation]", parent="Win", 
                  pos=[dpg.get_item_pos(ZERO)[0] + dpg.get_item_width(ZERO) + 10, 
                       dpg.get_item_pos(ZERO)[1] + (dpg.get_item_height(ZERO) / 2) - 10],
                       color=[200, 0, 0])
@@ -91,10 +93,17 @@ def StrOrInt(Num, M): # Namber -{become}-> int (Example: '9' --> 9) | Rules -{St
 
     return Num
 
-def Sets_Rules(sender): # Replace "[...]" and [Number (int) Or Function (str)] /// Rule For Func Read In "F_count[rus/eng].txt"
+def BecomeListToStr(Num):
+    S = ""
+    for Ch in range(len(Num)):
+        S += str(Num[Ch]) + " "
+
+    return S
+
+def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Function (str)] /// Rule For Func Read In "F_count[rus/eng].txt"
     global new_text
 
-    if new_text == "[...]":
+    if new_text == "[Enter The Equation]":
         new_text = []
         new_text = StrOrInt(new_text, sender)
     else:
@@ -128,31 +137,36 @@ def Sets_Rules(sender): # Replace "[...]" and [Number (int) Or Function (str)] /
                 DivisionZero()
         except IndexError:
             continue
-            
-    dpg.set_value(Use_Num, new_text)
+
+    S = BecomeListToStr(new_text)
+    dpg.set_value(Use_Num, S)
 """ (| ------ ↑↑ Sets Up The User's Qquation And Processes It To Combine And Produce A Result ↑↑ --------------------------|) |X| """
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ | |
 
 """ (| ------ ↓↓ Func For DELETE ↓↓ --------------------------|) |X| """
-def Delete_Rules(): # For Button. Delete All "Rules" And Sets "[...]"
+def Delete_Rules(): # For Button. Delete All "Rules" And Sets "[Enter The Equation]"
     global new_text, Use_Num
-    new_text = "[...]"
+    new_text = "[Enter The Equation]"
     dpg.set_value(Use_Num, new_text)
-def Delete_Last_El_Rules(): # For Button. Delete Last El In "Rules"
-    global new_text, Use_Num
-    if len(new_text) -1 == 0 or len(new_text) == 0 or type(new_text) == str:
+def Delete_Last_El_Rules(): # For Button. Delete Last Elemant In "Rules"
+    global new_text, Use_Num, S
+    S = ""
+    if (len(new_text) -1 == 0) or (len(new_text) == 0) or (new_text == "[Enter The Equation]"): # if "Rules" Not Have Elemants
         Delete_Rules()
     else:
         new_text.pop()
-    dpg.set_value(Use_Num, new_text)
+
+    S = BecomeListToStr(new_text)
+    dpg.set_value(Use_Num, S)
 """ (| ------ ↑↑ Func For DELETE ↑↑ --------------------------|) |X| """
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ | | 
 
 """ (| ------ ↓↓ Func - Give The Result ↓↓ --------------------------|) |X| """
-def Get_Result(sender): # Checking The "Rules" (new_text) And Give Result
+def Get_Result(): # Checking The "Rules" (new_text) And Give Result
     global new_text, new_func, Result, S1, S2
+
     for R in range(0, len(new_text) - 2):
         if (type(new_text[R]) in [int, float]) and (type(new_text[R + 1]) == str) and (type(new_text[R + 2]) in [int, float]): 
             S1, S2 = new_text[R], new_text[R + 2]
