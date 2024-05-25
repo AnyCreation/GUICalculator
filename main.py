@@ -112,13 +112,13 @@ def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Fu
     for Check in range(0, len(new_text) - 1): # Checks The Rules According To The "F_count[rus/eng].txt"
         if type(new_text[Check]) in [int, float] and type(new_text[Check + 1]) in [int, float]: #Check Numbers Using Rules 1, 2, 3
             K1, K2 = new_text[Check], new_text[Check + 1]
-            if K1 >= 1:
+            if K1 >= 1: # K = 1 <---> Infinity 
                 COS = K1 * 10 + K2
                 new_text.append(COS)
-            elif K1 > 0:
+            elif K1 > 0: # K =  0 <---> 0.5 <---> 1
                 COS = float(After_The_Decimal_Point(K1, K2))
                 new_text.append(COS)   
-            else:
+            else: # K = 0 
                 COS = K2 / 10
                 new_text.append(COS)
                 
