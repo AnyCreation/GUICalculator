@@ -131,7 +131,7 @@ def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Fu
             new_text.remove(K1)
 
         try: 
-            if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0 Using Rules 6
+            if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6
                 K1 = new_text[Check + 1]
                 new_text.pop()
                 DivisionZero()
