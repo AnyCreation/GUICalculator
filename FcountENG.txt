@@ -1,4 +1,4 @@
-ElemING = Number element
+ElemING = Number element / (int/float)
 ElemSTR = String element / (+, -, *, /, ^)
 
 1. If there is ElemING₁ and after it another ElemING₂, then [ElemING₁ is multiplied by 10 and ElemING₂ is added].
