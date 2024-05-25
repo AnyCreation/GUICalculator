@@ -116,29 +116,21 @@ def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Fu
             K1, K2 = new_text[Check], new_text[Check + 1]
             if K1 >= 1: # K = 1 <---> Infinity 
                 COS = K1 * 10 + K2
-                new_text.append(COS)
             elif K1 > 0: # K =  0 <---> 0.5 <---> 1
-                COS = float(After_The_Decimal_Point(K1, K2))
-                new_text.append(COS)   
+                COS = float(After_The_Decimal_Point(K1, K2))  
             else: # K = 0 
                 COS = K2 / 10
-                new_text.append(COS)
-                
-            if COS in new_text:
-                new_text.remove(K1)
-                new_text.remove(K2)
+            
+            new_text.append(COS)
+            new_text.pop(Check)
+            new_text.pop(Check)
 
         if type(new_text[Check]) == str and type(new_text[Check + 1]) == str: #Check Str Using Rules 5
-            K1 = new_text[Check]
-            new_text.remove(K1)
+            new_text.pop(Check)
 
-        try: 
-            if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6
-                K1 = new_text[Check + 1]
-                new_text.pop()
-                DivisionZero()
-        except IndexError:
-            continue
+        if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6
+            new_text.pop(Check + 1)
+            DivisionZero()
 
     dpg.set_value(Use_Num, BecomeListToStr(new_text))
 """ (| ------ ↑↑ Sets Up The User's Qquation And Processes It To Combine And Produce A Result ↑↑ --------------------------|) |X| """
