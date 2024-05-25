@@ -158,8 +158,6 @@ def Delete_Last_El_Rules(): # For Button. Delete Last Elemant In "Rules"
 def Get_Result(): # Checking The "Rules" (new_text) And Give Result
     global new_text, new_func, Result, S1, S2
 
-    print(new_text)
-
     for R in range(1, len(new_text) - 1):
         if (type(new_text[R - 1]) in [int, float]) and (type(new_text[R]) == str) and (type(new_text[R + 1]) in [int, float]): 
             S1, S2 = new_text[R - 1], new_text[R + 1]
