@@ -94,6 +94,8 @@ def StrOrInt(Num, M): # Namber -{become}-> int (Example: '9' --> 9) | Rules -{St
     return Num
 
 def BecomeListToStr(Num):
+    if type(Num) == str:
+        return Num
     S = ""
     for Ch in Num:
         S += str(Ch) + " "
@@ -138,27 +140,24 @@ def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Fu
         except IndexError:
             continue
 
-    S = BecomeListToStr(new_text)
-    dpg.set_value(Use_Num, S)
+    dpg.set_value(Use_Num, BecomeListToStr(new_text))
 """ (| ------ ↑↑ Sets Up The User's Qquation And Processes It To Combine And Produce A Result ↑↑ --------------------------|) |X| """
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ | |
 
 """ (| ------ ↓↓ Func For DELETE ↓↓ --------------------------|) |X| """
 def Delete_Rules(): # For Button. Delete All "Rules" And Sets "[Enter The Equation]"
-    global new_text, Use_Num
+    global new_text
     new_text = "[Enter The Equation]"
-    dpg.set_value(Use_Num, new_text)
+    dpg.set_value(Use_Num, BecomeListToStr(new_text))
 def Delete_Last_El_Rules(): # For Button. Delete Last Elemant In "Rules"
-    global new_text, Use_Num, S
+    global new_text, S
     S = ""
     if (len(new_text) -1 == 0) or (len(new_text) == 0) or (new_text == "[Enter The Equation]"): # if "Rules" Not Have Elemants
         Delete_Rules()
     else:
         new_text.pop()
-
-    S = BecomeListToStr(new_text)
-    dpg.set_value(Use_Num, S)
+    dpg.set_value(Use_Num, BecomeListToStr(new_text))
 """ (| ------ ↑↑ Func For DELETE ↑↑ --------------------------|) |X| """
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ | | 
@@ -167,12 +166,14 @@ def Delete_Last_El_Rules(): # For Button. Delete Last Elemant In "Rules"
 def Get_Result(): # Checking The "Rules" (new_text) And Give Result
     global new_text, new_func, Result, S1, S2
 
-    for R in range(0, len(new_text) - 2):
-        if (type(new_text[R]) in [int, float]) and (type(new_text[R + 1]) == str) and (type(new_text[R + 2]) in [int, float]): 
-            S1, S2 = new_text[R], new_text[R + 2]
-            F = new_text[R + 1]
-        
-            dpg.set_value(Result, Func_Push([S1, S2], F))
+    print(new_text)
+
+    for R in range(1, len(new_text) - 1):
+        if (type(new_text[R - 1]) in [int, float]) and (type(new_text[R]) == str) and (type(new_text[R + 1]) in [int, float]): 
+            S1, S2 = new_text[R - 1], new_text[R + 1]
+            Actions = new_text[R]
+            
+            dpg.set_value(Result, Func_Push([S1, S2], Actions))
 """ (| ------ ↑↑ Give The Result ↑↑ --------------------------|) |X| """
 
 
