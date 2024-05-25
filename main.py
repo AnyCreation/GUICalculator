@@ -95,8 +95,8 @@ def StrOrInt(Num, M): # Namber -{become}-> int (Example: '9' --> 9) | Rules -{St
 
 def BecomeListToStr(Num):
     S = ""
-    for Ch in range(len(Num)):
-        S += str(Num[Ch]) + " "
+    for Ch in Num:
+        S += str(Ch) + " "
 
     return S
 
