@@ -129,9 +129,12 @@ def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Fu
         if type(new_text[Check]) == str and type(new_text[Check + 1]) == str: #Check Str Using Rules 5, (Ex: 5 + /) 
             new_text.pop(Check) # --> [5 + /] --> [5 /]
 
-        if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6 
-            new_text.pop(Check + 1) # [5 /] --> [5 / 0] --> [5 /]
-            DivisionZero()
+        try:
+            if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6 
+                new_text.pop(Check + 1) # [5 /] --> [5 / 0] --> [5 /]
+                DivisionZero()
+        except IndexError:
+            continue
 
     dpg.set_value(Use_Num, BecomeListToStr(new_text))
 """ (| ------ ↑↑ Sets Up The User's Qquation And Processes It To Combine And Produce A Result ↑↑ --------------------------|) |X| """
