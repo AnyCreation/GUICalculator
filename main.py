@@ -112,24 +112,25 @@ def Sets_Rules(sender): # Replace "[Enter The Equation]" and [Number (int) Or Fu
         new_text = StrOrInt(new_text, sender)
 
     for Check in range(0, len(new_text) - 1): # Checks The Rules According To The "F_count[rus/eng].txt"
-        if type(new_text[Check]) in [int, float] and type(new_text[Check + 1]) in [int, float]: #Check Numbers Using Rules 1, 2, 3
+        if type(new_text[Check]) in [int, float] and type(new_text[Check + 1]) in [int, float]: #Check Numbers Using Rules 1, 2, 3, (Ex: 5, 7)
             K1, K2 = new_text[Check], new_text[Check + 1]
             if K1 >= 1: # K = 1 <---> Infinity 
-                COS = K1 * 10 + K2
-            elif K1 > 0: # K =  0 <---> 0.5 <---> 1
-                COS = float(After_The_Decimal_Point(K1, K2))  
+                COS = K1 * 10 + K2 # --> (Ex: 5, 7 --> 50, 7 --> 57)
+            elif K1 > 0: # K = 0 <---> 1
+                COS = float(After_The_Decimal_Point(K1, K2)) # --> (Ex: 0.5, 7 --> 0.57)
             else: # K = 0 
-                COS = K2 / 10
+                COS = K2 / 10 # --> (Ex: 0, 5 --> 0.5)
             
-            new_text.append(COS)
-            new_text.pop(Check)
-            new_text.pop(Check)
+            # Ex: K1 >= 1 | 5, 7, 
+            new_text.append(COS) # --> 5, 7, 57
+            new_text.pop(Check) # --> 7, 57
+            new_text.pop(Check) # --> 57
 
-        if type(new_text[Check]) == str and type(new_text[Check + 1]) == str: #Check Str Using Rules 5
-            new_text.pop(Check)
+        if type(new_text[Check]) == str and type(new_text[Check + 1]) == str: #Check Str Using Rules 5, (Ex: 5 + /) 
+            new_text.pop(Check) # --> [5 + /] --> [5 /]
 
-        if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6
-            new_text.pop(Check + 1)
+        if new_text[Check] == "/" and new_text[Check + 1] == 0: #Check If user writing "/" and 0. Rules 6 
+            new_text.pop(Check + 1) # [5 /] --> [5 / 0] --> [5 /]
             DivisionZero()
 
     dpg.set_value(Use_Num, BecomeListToStr(new_text))
